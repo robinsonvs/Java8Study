@@ -192,7 +192,16 @@ public class Lessons11 {
 		totalValuePerProduct.entrySet().stream()
 			.sorted(Comparator.comparing(Map.Entry::getValue))
 			.forEach(System.out::println);
-
+		
+		
+		System.out.println("obtendo produtos por cliente");
+		Map<Customer, List<List<Product>>> customerToProductsList =
+				payments.stream()
+				.collect(Collectors.groupingBy(Payment::getCustomer, Collectors.mapping(Payment::getProducts, Collectors.toList())));
+		
+		customerToProductsList.entrySet().stream()
+			.sorted(Comparator.comparing(e -> e.getKey().getName()))
+			.forEach(System.out::println);		
 		
 		
 	}
